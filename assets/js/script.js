@@ -3,12 +3,6 @@ const cityFormEl = document.querySelector('#city-form');
 const cityEl= document.getElementById("city-input");
 const dayForecastListEl = document.querySelectorAll(".day-forecast");
 
-var dateEl = document.getElementById("date");
-var tempEl = document.getElementById("temp");
-var windEl = document.getElementById("wind");
-var humidityEl = document.getElementById("humidity");
-var iconEl = document.getElementById("weather-icon");
-
 function displayForecast(data){
   let dayWeatherList = data.list;
   let dayWeatherIndex = 0;
@@ -54,15 +48,25 @@ var formSubmitHandler = function requestForecastByCity(event) {
   let cityName = cityEl.value.trim();
   console.log("City: " + cityName);
 
-  // Request City coodinates using Geocoding
-  let requestCoodinatesUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=" + APIKey;
-  fetch(requestCoodinatesUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      requestForecast(data[0].lat, data[0].lon);
-    });
+  if (cityName) {
+    // Request City coodinates using Geocoding
+    let requestCoodinatesUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=" + APIKey;
+    fetch(requestCoodinatesUrl)
+      .then(function (response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+              requestForecast(data[0].lat, data[0].lon);
+          });
+        } else {
+          alert('Error: ' + response.statusText);
+        }
+      });
+        
+  } else {
+    alert('Please enter a city name');
+  }
+
+  
 
 }
 
