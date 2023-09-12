@@ -1,12 +1,38 @@
-var APIKey = "0dccb660b8ff3b1cd80b2c8036f3c8a3";
-var cityFormEl = document.querySelector('#city-form');
-var cityEl= document.getElementById("city-input");
+const APIKey = "0dccb660b8ff3b1cd80b2c8036f3c8a3";
+const cityFormEl = document.querySelector('#city-form');
+const cityEl= document.getElementById("city-input");
+const dayForecastListEl = document.querySelectorAll(".day-forecast");
 
 var dateEl = document.getElementById("date");
 var tempEl = document.getElementById("temp");
 var windEl = document.getElementById("wind");
 var humidityEl = document.getElementById("humidity");
 var iconEl = document.getElementById("weather-icon");
+
+function displayForecast(data){
+  let dayWeatherList = data.list;
+  let dayWeatherIndex = 0;
+  let hours =8;
+  dayForecastListEl.forEach(element => {
+    let dayWeather =  dayWeatherList[dayWeatherIndex];
+    let dayForecastElements = element.children;
+    //day
+    dayForecastElements[0].textContent = dayWeather.main.dt;
+    //Weather icon
+    dayForecastElements[1].textContent = dayWeather.weather.icon;
+    //Temperture
+    dayForecastElements[2].firstElementChild.textContent = dayWeather.main.temp;
+    //Wind
+    dayForecastElements[3].firstElementChild.textContent = dayWeather.wind.speed;
+    //Humidity
+    dayForecastElements[4].firstElementChild.textContent = dayWeather.main.humidity;
+    dayWeatherIndex += hours;
+    if (dayWeatherIndex >= dayWeatherList.length){
+      dayWeatherIndex = dayWeatherList.length -1; // last index
+    }
+  }); 
+  
+}
 
 
 function requestForecast(cityLat, cityLong){
@@ -18,17 +44,8 @@ function requestForecast(cityLat, cityLong){
       return response.json();
     })
     .then(function (data) {
-      console.log(data)
-      //Loop over the data to generate a table, each table row will have a link to the repo url
-      let dayWeatherList = data.list;
-      let dayWeather =  dayWeatherList[0];
-      dateEl.textContent = dayWeather.main.dt;
-      tempEl.textContent = dayWeather.main.temp;
-      windEl.textContent = dayWeather.wind.speed;
-      humidityEl.textContent = dayWeather.main.humidity;
-      iconEl.textContent = dayWeather.weather.icon;
-      for (var i = 0; i < data.length; i++) {
-      }
+      console.log(data);
+      displayForecast(data);
     });
 }
 
