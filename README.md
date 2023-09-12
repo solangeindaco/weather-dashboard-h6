@@ -24,8 +24,8 @@ The following image shows the web application's appearance and functionality:
 ## Credits
 
 To refactor this website, I used the following tutorials:  
-    -       
-    -       
+    - OpenWeatherMap : https://openweathermap.org/api        
+    - Geocoding: https://openweathermap.org/api/geocoding-api#direct_name           
     -     
     - Github:    
 
