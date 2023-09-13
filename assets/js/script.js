@@ -29,7 +29,8 @@ function displayForecast(data){
     //day
     dayForecastElements[0].textContent = dayWeather.main.dt;
     //Weather icon
-    dayForecastElements[1].textContent = dayWeather.weather.icon;
+    let weatherIconURL = "https://openweathermap.org/img/wn/" + dayWeather.weather[0].icon + "@2x.png";
+    dayForecastElements[1].setAttribute("src", weatherIconURL);
     //Temperture
     dayForecastElements[2].firstElementChild.textContent = dayWeather.main.temp;
     //Wind
