@@ -27,7 +27,7 @@ function displayForecast(data){
     let dayWeather =  dayWeatherList[dayWeatherIndex];
     let dayForecastElements = element.children;
     //day
-    dayForecastElements[0].textContent = dayWeather.main.dt;
+    dayForecastElements[0].textContent = moment.unix(dayWeather.dt).format("MM/DD/YYYY");
     //Weather icon
     let weatherIconURL = "https://openweathermap.org/img/wn/" + dayWeather.weather[0].icon + "@2x.png";
     dayForecastElements[1].setAttribute("src", weatherIconURL);
