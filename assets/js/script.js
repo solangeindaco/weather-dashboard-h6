@@ -1,5 +1,6 @@
 const APIKey = "0dccb660b8ff3b1cd80b2c8036f3c8a3";
 const cityFormEl = document.querySelector('#city-form');
+const cityInputEl = document.querySelector('#city-input');
 const cityEl= document.getElementById("city-input");
 const dayForecastListEl = document.querySelectorAll(".day-forecast");
 const searchedCitiesEl = document.getElementById("cities-container");
@@ -27,7 +28,8 @@ function displayForecast(data){
     let dayWeather =  dayWeatherList[dayWeatherIndex];
     let dayForecastElements = element.children;
     //day
-    dayForecastElements[0].textContent = moment.unix(dayWeather.dt).format("MM/DD/YYYY");
+    let date = moment.unix(dayWeather.dt).format("MM/DD/YYYY");
+    dayForecastElements[0].textContent = element.hasAttribute("id","today-weather") ? (data.city.name + " " + date) : date;
     //Weather icon
     let weatherIconURL = "https://openweathermap.org/img/wn/" + dayWeather.weather[0].icon + "@2x.png";
     dayForecastElements[1].setAttribute("src", weatherIconURL);
@@ -48,7 +50,6 @@ function displayForecast(data){
 
 function requestForecast(cityLat, cityLong){
   var requestForecasttUrl ="http://api.openweathermap.org/data/2.5/forecast?lat=" + cityLat + "&lon="+ cityLong + "&appid=" + APIKey;
-  console.log(requestForecasttUrl);
 
   fetch(requestForecasttUrl)
     .then(function (response) {
@@ -106,4 +107,15 @@ function displaySearchedCities(){
   }
 }
 
+function displayWeatherDefaultCity(){
+  //Request the weather of San Jose CA
+  cityInputEl.setAttribute("placeholder","San Jose");
+  requestForecast(37.3361663,-121.890591);
+}
+
+function displayWeatherCurrentLocation(position){
+  requestForecast(position.coords.latitude, position.coords.longitude);
+}
+
 displaySearchedCities();
+navigator.geolocation.getCurrentPosition(displayWeatherCurrentLocation, displayWeatherDefaultCity);
