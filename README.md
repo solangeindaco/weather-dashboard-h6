@@ -7,7 +7,7 @@ I learn:
     - how to use Momentjs library to display the dates.          
     - how to use OpenWeatherMap API.     
     - how to make a request to an API.      
-    - how to.   
+    - how to use Bootstrap to style the web page.   
 
 ## Installation
 
@@ -27,7 +27,7 @@ To refactor this website, I used the following tutorials:
     - OpenWeatherMap : https://openweathermap.org/api        
     - Geocoding: https://openweathermap.org/api/geocoding-api#direct_name           
     - Momentjs: https://momentjs.com/      
-    - Github:    
+    - Bootstrap: https://getbootstrap.com/docs/5.3/getting-started/introduction/       
 
 ## License
 
