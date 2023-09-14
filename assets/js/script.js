@@ -7,6 +7,13 @@ const searchedCitiesEl = document.getElementById("cities-container");
 
 var cities = [];
 
+var buttonClickHandler = function (event) {
+  let cityName = event.target.textContent;
+  let cityLatLon = JSON.parse(localStorage.getItem(cityName));
+  requestForecast(cityLatLon[0], cityLatLon[1]);
+}
+
+
 function saveCity(cityName){
   cities.push(cityName);
   console.log(cities);
@@ -17,6 +24,7 @@ function appendNewCity(cityName){
   let cityBtn = document.createElement('button');
   cityBtn.setAttribute("class", "btn btn-secondary");
   cityBtn.textContent = cityName;
+  cityBtn.addEventListener("click",buttonClickHandler);
   searchedCitiesEl.appendChild(cityBtn);
 }
 
@@ -75,13 +83,12 @@ var formSubmitHandler = function requestForecastByCity(event) {
     }else{
     // Request City coodinates using Geocoding
       let requestCoodinatesUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=" + APIKey;
-      console.log("busco las cordenadas");
       fetch(requestCoodinatesUrl)
         .then(function (response) {
           if (response.ok) {
               response.json().then(function (data) {
                 requestForecast(data[0].lat, data[0].lon);
-                localStorage.setItem(cityName, [data[0].lat,data[0].lon]);
+                localStorage.setItem(cityName, JSON.stringify([data[0].lat,data[0].lon]));
                 saveCity(cityName);
                 appendNewCity(cityName);
             });
@@ -93,8 +100,6 @@ var formSubmitHandler = function requestForecastByCity(event) {
   }
     
 }
-
-cityFormEl.addEventListener('submit', formSubmitHandler);
 
 function displaySearchedCities(){
   cities = JSON.parse(localStorage.getItem("cities"));
@@ -117,5 +122,6 @@ function displayWeatherCurrentLocation(position){
   requestForecast(position.coords.latitude, position.coords.longitude);
 }
 
+cityFormEl.addEventListener('submit', formSubmitHandler);
 displaySearchedCities();
 navigator.geolocation.getCurrentPosition(displayWeatherCurrentLocation, displayWeatherDefaultCity);
