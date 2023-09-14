@@ -13,19 +13,19 @@
 
 <body>
   <!-- Page margins are created using the container and container-fluid classes -->
-  <header class="p-5 text-center bg-dark text-light">
+  <header class="p-5 text-center bg-primary bg-gradient text-light">
     <h1>Wheather Dashboard</h1>
   </header>
   <main class="container flex-row justify-space-between">
 
     <div class="row">
       <div class="col-12 col-md-4">
-        <h2>Search for a city</h2>
-        <form id="city-form" class="card-body">
+        <h3>Search for a city:</h3>
+        <form id="city-form" class="card-body border-bottom border-secondary p-2  d-grid gap-2">
           <input type="text" class="form-input" id="city-input" placeholder="Enter city name" />
-          <button type="submit" class="btn btn-info">search</button>
+          <button type="submit" class="btn btn-primary">search</button>
         </form>
-        <div id="cities-container" class="list-group"></div>
+        <div id="cities-container" class="list-group gap-2 p-2"></div>
       </div>
           
 

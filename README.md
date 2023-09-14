@@ -5,8 +5,8 @@
 I developed from scratch a Weather Dashboard as part of a homework for a Coding Bootcamp, to learn how to use Third party APIs.
 I learn:     
     - how to use Momentjs library to display the dates.          
-    - how to        
-    - how to.      
+    - how to use OpenWeatherMap API.     
+    - how to make a request to an API.      
     - how to.   
 
 ## Installation
