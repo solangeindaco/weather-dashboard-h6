@@ -11,9 +11,7 @@ let cities = [];
 
 let buttonClickHandler = function (event) {
   let cityName = event.target.textContent;
-  console.log(cityName);
   let cityLatLon = JSON.parse(localStorage.getItem(cityName));
-  console.log(cityLatLon);
   requestForecast(cityLatLon[0], cityLatLon[1]);
 }
 
@@ -94,7 +92,6 @@ let formSubmitHandler = function requestForecastByCity(event) {
         .then(function (response) {
           if (response.ok) {
               response.json().then(function (data) {
-                console.log(data);
                 requestForecast(data[0].lat, data[0].lon);
                 localStorage.setItem(cityName, JSON.stringify([data[0].lat,data[0].lon]));
                 saveCity(cityName);
