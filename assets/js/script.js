@@ -4,12 +4,16 @@ const cityInputEl = document.querySelector('#city-input');
 const cityEl= document.getElementById("city-input");
 const dayForecastListEl = document.querySelectorAll(".day-forecast");
 const searchedCitiesEl = document.getElementById("cities-container");
+const messageToUserEl = document.getElementById("message-to-user");
+const cityWeatherEl = document.getElementById("city-weather");
 
-var cities = [];
+let cities = [];
 
-var buttonClickHandler = function (event) {
+let buttonClickHandler = function (event) {
   let cityName = event.target.textContent;
+  console.log(cityName);
   let cityLatLon = JSON.parse(localStorage.getItem(cityName));
+  console.log(cityLatLon);
   requestForecast(cityLatLon[0], cityLatLon[1]);
 }
 
@@ -29,6 +33,8 @@ function appendNewCity(cityName){
 }
 
 function displayForecast(data){
+  hideInitMessage();
+  showCityWeather();
   let dayWeatherList = data.list;
   let dayWeatherIndex = 0;
   let hours =8;
@@ -86,10 +92,12 @@ var formSubmitHandler = function requestForecastByCity(event) {
         .then(function (response) {
           if (response.ok) {
               response.json().then(function (data) {
+                console.log(data);
                 requestForecast(data[0].lat, data[0].lon);
                 localStorage.setItem(cityName, JSON.stringify([data[0].lat,data[0].lon]));
                 saveCity(cityName);
                 appendNewCity(cityName);
+                
             });
           } else { alert('Error: ' + response.statusText);}
         });
@@ -111,16 +119,19 @@ function displaySearchedCities(){
   }
 }
 
-function displayWeatherDefaultCity(){
-  //Request the weather of San Jose CA
-  cityInputEl.setAttribute("placeholder","San Jose");
-  requestForecast(37.3361663,-121.890591);
+function hideCityWeather(){
+  cityWeatherEl.setAttribute("style","display:none");
 }
 
-function displayWeatherCurrentLocation(position){
-  requestForecast(position.coords.latitude, position.coords.longitude);
+function showCityWeather(){
+  cityWeatherEl.setAttribute("style","display:block");
 }
+
+function hideInitMessage(){
+  messageToUserEl.setAttribute("style","display:none");
+}
+
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
 displaySearchedCities();
-navigator.geolocation.getCurrentPosition(displayWeatherCurrentLocation, displayWeatherDefaultCity);
+hideCityWeather();

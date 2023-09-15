@@ -2,3 +2,7 @@
     width: fit-content;
     height: fit-content;
 }
+
+.city-weather{
+    display:none;
+}
