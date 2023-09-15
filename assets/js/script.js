@@ -87,7 +87,7 @@ var formSubmitHandler = function requestForecastByCity(event) {
       requestForecast(cityLatLon[0], cityLatLon[1]);
     }else{
     // Request City coodinates using Geocoding
-      let requestCoodinatesUrl ="http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=" + APIKey;
+      let requestCoodinatesUrl ="https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=" + APIKey;
       fetch(requestCoodinatesUrl)
         .then(function (response) {
           if (response.ok) {
