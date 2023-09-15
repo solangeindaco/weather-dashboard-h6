@@ -20,11 +20,7 @@ let buttonClickHandler = function (event) {
 //Save a city name. If the list has 10 cities, the oldest city saved it is deleted to avoid posible storage problems.
 function saveCity(cityName){
   //Save a city. 
-  if (cities.length == 10){
-    cities = cities.slice(1);
-  }
   cities.push(cityName);
-  console.log(cities);
   localStorage.setItem("cities", JSON.stringify(cities));
 }
 
