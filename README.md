@@ -24,10 +24,10 @@ The following image shows the web application's appearance and functionality:
 ## Credits
 
 To refactor this website, I used the following tutorials:  
-    - OpenWeatherMap : https://openweathermap.org/api        
-    - Geocoding: https://openweathermap.org/api/geocoding-api#direct_name           
+    - OpenWeatherMap : https://openweathermap.org/api                      
     - Momentjs: https://momentjs.com/      
-    - Bootstrap: https://getbootstrap.com/docs/5.3/getting-started/introduction/       
+    - Bootstrap: https://getbootstrap.com/docs/5.3/getting-started/introduction/   
+    - Fetch method: https://developer.mozilla.org/en-US/docs/Web/API/fetch        
 
 ## License
 
