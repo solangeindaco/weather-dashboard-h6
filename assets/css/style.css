@@ -6,3 +6,7 @@
 .city-weather{
     display:none;
 }
+
+.bg-primary.bg-gradient {
+    background-color: #0c3b6e;
+}

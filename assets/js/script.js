@@ -17,13 +17,18 @@ let buttonClickHandler = function (event) {
   requestForecast(cityLatLon[0], cityLatLon[1]);
 }
 
-
+//Save a city name. If the list has 10 cities, the oldest city saved it is deleted to avoid posible storage problems.
 function saveCity(cityName){
+  //Save a city. 
+  if (cities.length == 10){
+    cities = cities.slice(1);
+  }
   cities.push(cityName);
   console.log(cities);
   localStorage.setItem("cities", JSON.stringify(cities));
 }
 
+//Append a new button to the list of seached city buttons
 function appendNewCity(cityName){
   let cityBtn = document.createElement('button');
   cityBtn.setAttribute("class", "btn btn-secondary");
@@ -32,6 +37,7 @@ function appendNewCity(cityName){
   searchedCitiesEl.appendChild(cityBtn);
 }
 
+//Display the weather of the City in the current date and the 5-day followed.
 function displayForecast(data){
   hideInitMessage();
   showCityWeather();
@@ -41,10 +47,10 @@ function displayForecast(data){
   dayForecastListEl.forEach(element => {
     let dayWeather =  dayWeatherList[dayWeatherIndex];
     let dayForecastElements = element.children;
-    //day
+    //Get the date from the js library moment and displayed it in a the format "MM/DD/YYYY"
     let date = moment.unix(dayWeather.dt).format("MM/DD/YYYY");
     dayForecastElements[0].textContent = element.hasAttribute("id","today-weather") ? (data.city.name + " " + date) : date;
-    //Weather icon
+    //Add the Weather icon url to the image src
     let weatherIconURL = "https://openweathermap.org/img/wn/" + dayWeather.weather[0].icon + ".png";
     dayForecastElements[1].setAttribute("src", weatherIconURL);
     //Temperture
@@ -61,7 +67,7 @@ function displayForecast(data){
   
 }
 
-
+// Mada a resquest of the weather of a city passing the latitude and longitude of that city
 function requestForecast(cityLat, cityLong){
   var requestForecasttUrl ="https://api.openweathermap.org/data/2.5/forecast?lat=" + cityLat + "&lon="+ cityLong + "&appid=" + APIKey;
 
@@ -76,7 +82,7 @@ function requestForecast(cityLat, cityLong){
     });
 }
 
-var formSubmitHandler = function requestForecastByCity(event) {
+let formSubmitHandler = function requestForecastByCity(event) {
   event.preventDefault();
   let cityName = cityEl.value.trim();
 
@@ -108,6 +114,7 @@ var formSubmitHandler = function requestForecastByCity(event) {
     
 }
 
+//Display the cities that already where searched as a list of buttons
 function displaySearchedCities(){
   cities = JSON.parse(localStorage.getItem("cities"));
   if (cities !== null){
@@ -119,19 +126,21 @@ function displaySearchedCities(){
   }
 }
 
+//Hide the html div that display the weather when the user first land on the page
 function hideCityWeather(){
   cityWeatherEl.setAttribute("style","display:none");
 }
 
+//Show the html div that display the weather when the user first land on the page
 function showCityWeather(){
   cityWeatherEl.setAttribute("style","display:block");
 }
-
+//Hide the html div that display the init message asking that the user enter a city name when the user first land on the page
 function hideInitMessage(){
   messageToUserEl.setAttribute("style","display:none");
 }
 
-
+//Link the formSubmitHandler to the city form
 cityFormEl.addEventListener('submit', formSubmitHandler);
 displaySearchedCities();
 hideCityWeather();
