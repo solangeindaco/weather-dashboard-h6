@@ -45,7 +45,7 @@ function displayForecast(data){
     let date = moment.unix(dayWeather.dt).format("MM/DD/YYYY");
     dayForecastElements[0].textContent = element.hasAttribute("id","today-weather") ? (data.city.name + " " + date) : date;
     //Weather icon
-    let weatherIconURL = "http://openweathermap.org/img/wn/" + dayWeather.weather[0].icon + ".png";
+    let weatherIconURL = "https://openweathermap.org/img/wn/" + dayWeather.weather[0].icon + ".png";
     dayForecastElements[1].setAttribute("src", weatherIconURL);
     //Temperture
     dayForecastElements[2].firstElementChild.textContent = dayWeather.main.temp;
@@ -63,7 +63,7 @@ function displayForecast(data){
 
 
 function requestForecast(cityLat, cityLong){
-  var requestForecasttUrl ="http://api.openweathermap.org/data/2.5/forecast?lat=" + cityLat + "&lon="+ cityLong + "&appid=" + APIKey;
+  var requestForecasttUrl ="https://api.openweathermap.org/data/2.5/forecast?lat=" + cityLat + "&lon="+ cityLong + "&appid=" + APIKey;
 
   fetch(requestForecasttUrl)
     .then(function (response) {
