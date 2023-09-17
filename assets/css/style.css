@@ -1,3 +1,7 @@
+header{
+    background-color:rgb(52, 52, 107);
+}
+
 .weather-image{
     width: fit-content;
     height: fit-content;
@@ -7,6 +11,6 @@
     display:none;
 }
 
-.bg-primary.bg-gradient {
-    background-color: #0c3b6e;
+.day-forecast{
+    background-color:rgb(52, 52, 107);
 }
