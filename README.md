@@ -26,7 +26,7 @@ The following image shows the web application's appearance and functionality:
 
 To refactor this website, I used the following tutorials:  
     - OpenWeatherMap : https://openweathermap.org/api      
-    - https://openweathermap.org/forecast5#geocoding                   
+    - Geocoding API: https://openweathermap.org/forecast5#geocoding                   
     - Momentjs: https://momentjs.com/      
     - Bootstrap: https://getbootstrap.com/docs/5.3/getting-started/introduction/   
     - Fetch method: https://developer.mozilla.org/en-US/docs/Web/API/fetch        
