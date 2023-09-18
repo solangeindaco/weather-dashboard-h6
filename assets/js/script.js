@@ -13,6 +13,7 @@ let cities = [];
 //It storage the city name, its latitud and longitud in the array cities
 let buttonClickHandler = function (event) {
   let cityName = event.target.textContent;
+  cityInputEl.value = cityName;
   let citySelected = cities.find((city) => city.name == cityName);
   requestForecast(citySelected.lat, citySelected.long);
 }

@@ -6,6 +6,7 @@ I developed from scratch a Weather Dashboard as part of a homework for a Coding 
 I learn:     
     - how to use Momentjs library to display the dates.          
     - how to use OpenWeatherMap API.     
+    - how to use Geocoding API to obtain the coordinates of a city   
     - how to make a request to an API.      
     - how to use Bootstrap to style the web page.   
 
@@ -24,7 +25,8 @@ The following image shows the web application's appearance and functionality:
 ## Credits
 
 To refactor this website, I used the following tutorials:  
-    - OpenWeatherMap : https://openweathermap.org/api                      
+    - OpenWeatherMap : https://openweathermap.org/api      
+    - https://openweathermap.org/forecast5#geocoding                   
     - Momentjs: https://momentjs.com/      
     - Bootstrap: https://getbootstrap.com/docs/5.3/getting-started/introduction/   
     - Fetch method: https://developer.mozilla.org/en-US/docs/Web/API/fetch        
