@@ -7,18 +7,21 @@ const searchedCitiesEl = document.getElementById("cities-container");
 const messageToUserEl = document.getElementById("message-to-user");
 const cityWeatherEl = document.getElementById("city-weather");
 
+//this array will storage the cities searched by the user
 let cities = [];
 
+//It storage the city name, its latitud and longitud in the array cities
 let buttonClickHandler = function (event) {
   let cityName = event.target.textContent;
-  let cityLatLon = JSON.parse(localStorage.getItem(cityName));
-  requestForecast(cityLatLon[0], cityLatLon[1]);
+  let citySelected = cities.find((city) => city.name == cityName);
+  requestForecast(citySelected.lat, citySelected.long);
 }
 
-//Save a city name. If the list has 10 cities, the oldest city saved it is deleted to avoid posible storage problems.
-function saveCity(cityName){
+//Save a city name, its latitude and longitude in the array cities and save the array to the local Storage
+function saveCity(name, latitude, longitude){
   //Save a city. 
-  cities.push(cityName);
+  let city = {name:name, lat: latitude, long: longitude};
+  cities.push(city);
   localStorage.setItem("cities", JSON.stringify(cities));
 }
 
@@ -61,7 +64,7 @@ function displayForecast(data){
   
 }
 
-// Mada a resquest of the weather of a city passing the latitude and longitude of that city
+// Made a resquest of the weather of a city passing the latitude and longitude of that city
 function requestForecast(cityLat, cityLong){
   var requestForecasttUrl ="https://api.openweathermap.org/data/2.5/forecast?lat=" + cityLat + "&lon="+ cityLong + "&appid=" + APIKey;
 
@@ -69,13 +72,13 @@ function requestForecast(cityLat, cityLong){
     .then(function (response) {
       if (response.ok) {
           response.json().then(function (data) {
-            console.log(data);
             displayForecast(data);
         });
       } else { alert('Error: ' + response.statusText);}
     });
 }
 
+// Made a resquest of the weather of a city passing the name of the city
 let formSubmitHandler = function requestForecastByCity(event) {
   event.preventDefault();
   let cityName = cityEl.value.trim();
@@ -93,8 +96,7 @@ let formSubmitHandler = function requestForecastByCity(event) {
           if (response.ok) {
               response.json().then(function (data) {
                 requestForecast(data[0].lat, data[0].lon);
-                localStorage.setItem(cityName, JSON.stringify([data[0].lat,data[0].lon]));
-                saveCity(cityName);
+                saveCity(cityName,data[0].lat, data[0].lon);
                 appendNewCity(cityName);
                 
             });
@@ -109,10 +111,11 @@ let formSubmitHandler = function requestForecastByCity(event) {
 
 //Display the cities that already where searched as a list of buttons
 function displaySearchedCities(){
+  searchedCitiesEl.value ='';
   cities = JSON.parse(localStorage.getItem("cities"));
   if (cities !== null){
     for (i=0; i< cities.length; i++){
-      appendNewCity(cities[i]);
+      appendNewCity(cities[i].name);
     }
   }else{
     cities = [];
