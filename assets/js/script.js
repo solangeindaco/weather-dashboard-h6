@@ -17,6 +17,10 @@ let buttonClickHandler = function (event) {
   requestForecast(citySelected.lat, citySelected.long);
 }
 
+function isSaved (cityName){
+  return (cities.find((city) => city.name == cityName) != undefined);
+}
+
 //Save a city name, its latitude and longitude in the array cities and save the array to the local Storage
 function saveCity(name, latitude, longitude){
   //Save a city. 
@@ -84,10 +88,10 @@ let formSubmitHandler = function requestForecastByCity(event) {
   let cityName = cityEl.value.trim();
 
   if (cityName) {
-    cityLatLon = localStorage.getItem(cityName);
-
-    if (cityLatLon !== null){
-      requestForecast(cityLatLon[0], cityLatLon[1]);
+    city = cities.find((city) => city.name == cityName);
+    // If the city was already searched, it used the latitude and longitud storaged in the local storage
+    if (city !== undefined){
+      requestForecast(city.lat, city.long);
     }else{
     // Request City coodinates using Geocoding
       let requestCoodinatesUrl ="https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=" + APIKey;
@@ -96,7 +100,9 @@ let formSubmitHandler = function requestForecastByCity(event) {
           if (response.ok) {
               response.json().then(function (data) {
                 requestForecast(data[0].lat, data[0].lon);
-                saveCity(cityName,data[0].lat, data[0].lon);
+                if (!isSaved(cityName)){
+                  saveCity(cityName,data[0].lat, data[0].lon);
+                }
                 appendNewCity(cityName);
                 
             });
